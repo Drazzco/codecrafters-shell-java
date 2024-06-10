@@ -1,6 +1,8 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-public class Main { //1
+public class MainShell {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         List<String> builtins = builtins();
@@ -25,23 +27,23 @@ public class Main { //1
             }
 
             switch(command) {
-                case builtins.get(0):
+                case "exit":
                     if(parameter.equals("0")) {
                         System.exit(0);
                     } else {
                         System.out.println(input + ": command not found");
                     }
                     break;
-                case builtins.get(1):
+                case "echo":
                     System.out.println(parameter);
                     break;
-                case builtins.get(2):
-                    switch(parameter) {
-                        case builtins.get(0) || builtins.get(1) || builtins.get(2):
-                            System.out.println(parameter + " is a shell builtin");
-                            break;
-                        default:
-                            System.out.println(parameter + ": not found");
+                case "type":
+                    if(parameter.equals(builtins.get(0)) || 
+                    parameter.equals(builtins.get(1)) || 
+                    parameter.equals(builtins.get(2))) {
+                        System.out.println(parameter + " is a shell builtin");
+                    } else {
+                        System.out.println(parameter + ": not found");
                     }
                     break;
                 default:
