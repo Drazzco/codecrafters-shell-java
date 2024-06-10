@@ -18,7 +18,7 @@ public class Main {
                         parameter += str[i];
                     }
                 }
-            } else {
+            } else if(str.length > 1) {
                 parameter = str[1];
             }
 
