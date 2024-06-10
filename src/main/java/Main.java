@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
+        List<String> builtins = builtins();
+        
         while(true) {
             System.out.print("$ ");
             String input = scanner.nextLine();
@@ -23,19 +25,36 @@ public class Main {
             }
 
             switch(command) {
-                case "exit":
+                case builtins.get(0):
                     if(parameter.equals("0")) {
                         System.exit(0);
                     } else {
                         System.out.println(input + ": command not found");
                     }
                     break;
-                case "echo":
+                case builtins.get(1):
                     System.out.println(parameter);
+                    break;
+                case builtins.get(2):
+                    switch(parameter) {
+                        case builtins.get(0) || builtins.get(1) || builtins.get(2):
+                            System.out.println(parameter + " is a shell builtin");
+                            break;
+                        default:
+                            System.out.println(parameter + ": not found");
+                    }
                     break;
                 default:
                 System.out.println(input + ": command not found");
             }
         }
+    }
+
+    private static List<String> builtins() {
+        List<String> builtins = new ArrayList<>();
+        builtins.add("exit");
+        builtins.add("echo");
+        builtins.add("type");
+        return builtins;
     }
 }
