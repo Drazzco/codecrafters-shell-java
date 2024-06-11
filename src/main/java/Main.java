@@ -1,3 +1,5 @@
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -43,13 +45,28 @@ public class Main {
                     parameter.equals(builtins.get(2))) {
                         System.out.println(parameter + " is a shell builtin");
                     } else {
-                        System.out.println(parameter + ": not found");
+                        String path = getPath(parameter);
+                        if(path != null) {
+                            System.out.println(parameter + " is " + path);
+                        } else {
+                            System.out.println(parameter + ": not found");
+                        }
                     }
                     break;
                 default:
                 System.out.println(input + ": command not found");
             }
         }
+    }
+
+    private static String getPath(String parameter) {
+        for (String path : System.getenv("PATH").split(":")) {
+            Path fullPath = Path.of(path, parameter);
+            if( Files.isRegularFile(fullPath)) {
+                return fullPath.toString();
+            }
+        }
+        return null;
     }
 
     private static List<String> builtins() {
