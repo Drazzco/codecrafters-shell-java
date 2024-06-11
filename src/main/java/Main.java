@@ -60,7 +60,11 @@ public class Main {
                 case "cd":
                     String cd = parameter;
                     if(!cd.startsWith("/")) {
-                        cd = dir + "/" + parameter;
+                        if(!cd.equals("~")) {
+                            cd = dir + "/" + parameter;
+                        } else {
+                            cd = System.getenv("HOME");
+                        }
                     }    
 
                     if(Files.isDirectory(Path.of(cd))) {
