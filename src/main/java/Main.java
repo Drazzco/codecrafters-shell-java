@@ -57,8 +57,8 @@ public class Main {
                 if(!parameter.equals("")) {
                     String path = getPath(command);
                     if(path != null) {
-                        String fullPath = path + input;
-                        Process process = Runtime.getRuntime().exec(fullPath.split(" "));
+                        String[] fullPath = new String[]{command, parameter};
+                        Process process = Runtime.getRuntime().exec(fullPath);
                         process.getInputStream().transferTo(System.out);
                     } else {
                         System.out.println(command + ": command not found");
