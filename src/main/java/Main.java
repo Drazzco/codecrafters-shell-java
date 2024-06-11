@@ -58,11 +58,15 @@ public class Main {
                     System.out.println(dir);
                     break;
                 case "cd":
-                    //String cd = getPath(parameter);
-                    if(Files.isDirectory(Path.of(parameter))) {
-                        dir = parameter;
+                    String cd = parameter;
+                    if(!cd.startsWith("/")) {
+                        cd = dir + "/" + parameter;
+                    }    
+
+                    if(Files.isDirectory(Path.of(cd))) {
+                        dir = Path.of(cd).normalize().toString();
                     } else {
-                        System.out.println("cd: " + parameter + ": No such file or directory");
+                        System.out.println("cd: " + cd + ": No such file or directory");
                     }
                     break;
                 default:
