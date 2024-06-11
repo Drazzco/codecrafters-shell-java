@@ -53,6 +53,10 @@ public class Main {
                         }
                     }
                     break;
+                case "pwd":
+                    String pwd = Path.of("").toAbsolutePath().toString();
+                    System.out.println(pwd);
+                    break;
                 default:
                 if(!parameter.equals("")) {
                     String path = getPath(command);
@@ -85,6 +89,7 @@ public class Main {
         builtins.add("exit");
         builtins.add("echo");
         builtins.add("type");
+        builtins.add("pwd");
         return builtins;
     }
 }
