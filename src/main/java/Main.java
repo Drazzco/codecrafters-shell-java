@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         List<String> builtins = builtins();
+        String dir = Path.of("").toAbsolutePath().toString();
         
         while(true) {
             System.out.print("$ ");
@@ -54,8 +55,15 @@ public class Main {
                     }
                     break;
                 case "pwd":
-                    String pwd = Path.of("").toAbsolutePath().toString();
-                    System.out.println(pwd);
+                    System.out.println(dir);
+                    break;
+                case "cd":
+                    String cd = getPath(parameter);
+                    if(Files.isDirectory(Path.of(cd))) {
+                        dir = cd;
+                    } else {
+                        System.out.println("cd: " + cd + ": No such file or directory");
+                    }
                     break;
                 default:
                 if(!parameter.equals("")) {
@@ -90,6 +98,7 @@ public class Main {
         builtins.add("echo");
         builtins.add("type");
         builtins.add("pwd");
+        builtins.add("cd");
         return builtins;
     }
 }
